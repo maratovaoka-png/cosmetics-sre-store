@@ -1,0 +1,67 @@
+---
+- name: Configure Online Cosmetics Store SRE Environment
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Show project setup message
+      debug:
+        msg: "Online Cosmetics Store SRE environment automation started."
+
+    - name: Check Docker version
+      command: docker --version
+      register: docker_version
+      ignore_errors: yes
+
+    - name: Display Docker version
+      debug:
+        var: docker_version.stdout
+
+    - name: Check Docker Compose version
+      command: docker compose version
+      register: compose_version
+      ignore_errors: yes
+
+    - name: Display Docker Compose version
+      debug:
+        var: compose_version.stdout
+
+    - name: Check Kubernetes client version
+      command: kubectl version --client
+      register: kubectl_version
+      ignore_errors: yes
+
+    - name: Display Kubernetes version
+      debug:
+        var: kubectl_version.stdout
+
+    - name: Check Terraform version
+      command: terraform version
+      register: terraform_version
+      ignore_errors: yes
+
+    - name: Display Terraform version
+      debug:
+        var: terraform_version.stdout
+
+    - name: Check Prometheus container status
+      command: docker ps --filter "name=cosmetics-prometheus"
+      register: prometheus_status
+      ignore_errors: yes
+
+    - name: Display Prometheus status
+      debug:
+        var: prometheus_status.stdout
+
+    - name: Check Grafana container status
+      command: docker ps --filter "name=cosmetics-grafana"
+      register: grafana_status
+      ignore_errors: yes
+
+    - name: Display Grafana status
+      debug:
+        var: grafana_status.stdout
+
+    - name: Show completion message
+      debug:
+        msg: "Automation checks completed for the cosmetics store infrastructure."
