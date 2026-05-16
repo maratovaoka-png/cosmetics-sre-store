@@ -1,0 +1,36 @@
+terraform {
+  required_providers {
+    local = {
+      source  = "hashicorp/local"
+      version = "~> 2.4"
+    }
+  }
+}
+
+resource "local_file" "cosmetics_infrastructure_plan" {
+  filename = "cosmetics-infrastructure-plan.txt"
+
+  content = <<EOT
+Infrastructure Plan for Online Cosmetics Store SRE Project
+
+Automated VM Creation Simulation:
+1. VM for microservices application
+2. VM for PostgreSQL database
+3. VM for monitoring stack
+4. VM for orchestration and automation tools
+
+Infrastructure Components:
+1. Docker and Docker Compose environment
+2. Docker Swarm cluster configuration
+3. Kubernetes deployment environment
+4. PostgreSQL database server
+5. Redis message broker
+6. Prometheus monitoring server
+7. Grafana visualization server
+8. cAdvisor container monitoring
+9. Network and firewall configuration
+10. Load balancing and scaling strategy
+
+This Terraform configuration simulates automated infrastructure provisioning for the SRE project.
+EOT
+}
