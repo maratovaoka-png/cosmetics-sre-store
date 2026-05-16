@@ -1,5 +1,8 @@
 from flask import Flask, jsonify, request
 from prometheus_client import Counter, Histogram, generate_latest
+import redis
+import os
+import json
 
 app = Flask(__name__)
 
@@ -18,6 +21,15 @@ REQUEST_LATENCY = Histogram(
     "Notification service request latency"
 )
 
+REDIS_HOST = os.getenv("REDIS_HOST", "redis")
+REDIS_PORT = int(os.getenv("REDIS_PORT", "6379"))
+
+redis_client = redis.Redis(
+    host=REDIS_HOST,
+    port=REDIS_PORT,
+    decode_responses=True
+)
+
 
 @app.route("/")
 def home():
@@ -25,7 +37,8 @@ def home():
     return jsonify({
         "service": "notification-service",
         "project": "Online Cosmetics Store",
-        "status": "running"
+        "status": "running",
+        "message_broker": "Redis"
     })
 
 
@@ -44,12 +57,31 @@ def send_notification():
             "error": "username and message are required"
         }), 400
 
+    notification = {
+        "username": username,
+        "message": message
+    }
+
+    redis_client.rpush("cosmetics_notifications", json.dumps(notification))
+
     NOTIFICATION_COUNT.inc()
 
     return jsonify({
-        "message": "Notification sent successfully",
+        "message": "Notification sent successfully and stored in Redis",
         "to": username,
         "notification": message
+    })
+
+
+@app.route("/notifications/queue", methods=["GET"])
+def get_notification_queue():
+    REQUEST_COUNT.inc()
+
+    messages = redis_client.lrange("cosmetics_notifications", 0, -1)
+
+    return jsonify({
+        "message_broker": "Redis",
+        "queue": [json.loads(item) for item in messages]
     })
 
 
@@ -57,7 +89,8 @@ def send_notification():
 def health():
     return jsonify({
         "service": "notification-service",
-        "status": "healthy"
+        "status": "healthy",
+        "message_broker": "Redis"
     })
 
 
