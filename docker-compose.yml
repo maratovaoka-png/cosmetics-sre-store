@@ -1,0 +1,73 @@
+version: "3.8"
+
+services:
+  auth-service:
+    build: ./services/auth-service
+    container_name: auth-service
+    ports:
+      - "5001:5001"
+    restart: always
+
+  product-service:
+    build: ./services/product-service
+    container_name: product-service
+    ports:
+      - "5002:5002"
+    restart: always
+
+  order-service:
+    build: ./services/order-service
+    container_name: order-service
+    ports:
+      - "5003:5003"
+    environment:
+      - FAIL_MODE=false
+    restart: always
+
+  payment-service:
+    build: ./services/payment-service
+    container_name: payment-service
+    ports:
+      - "5004:5004"
+    restart: always
+
+  notification-service:
+    build: ./services/notification-service
+    container_name: notification-service
+    ports:
+      - "5005:5005"
+    restart: always
+
+  review-service:
+    build: ./services/review-service
+    container_name: review-service
+    ports:
+      - "5006:5006"
+    restart: always
+
+  postgres:
+    image: postgres:15
+    container_name: cosmetics-postgres
+    environment:
+      POSTGRES_USER: cosmetics_user
+      POSTGRES_PASSWORD: cosmetics_password
+      POSTGRES_DB: cosmetics_store
+    ports:
+      - "5432:5432"
+    restart: always
+
+  prometheus:
+    image: prom/prometheus
+    container_name: cosmetics-prometheus
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    restart: always
+
+  grafana:
+    image: grafana/grafana
+    container_name: cosmetics-grafana
+    ports:
+      - "3000:3000"
+    restart: always
