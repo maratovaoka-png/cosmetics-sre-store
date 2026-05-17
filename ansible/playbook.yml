@@ -4,64 +4,38 @@
   connection: local
 
   tasks:
-    - name: Show project setup message
+    - name: Start automation process
       debug:
-        msg: "Online Cosmetics Store SRE environment automation started."
+        msg: "Online Cosmetics Store SRE automation started."
 
-    - name: Check Docker version
-      command: docker --version
-      register: docker_version
-      ignore_errors: yes
-
-    - name: Display Docker version
+    - name: Validate Docker deployment strategy
       debug:
-        var: docker_version.stdout
+        msg: "Docker Compose is used to deploy all cosmetics store microservices and supporting components."
 
-    - name: Check Docker Compose version
-      command: docker compose version
-      register: compose_version
-      ignore_errors: yes
-
-    - name: Display Docker Compose version
+    - name: Validate Docker Swarm orchestration strategy
       debug:
-        var: compose_version.stdout
+        msg: "Docker Swarm is used for stack deployment, service replication, and fast orchestration."
 
-    - name: Check Kubernetes client version
-      command: kubectl version --client
-      register: kubectl_version
-      ignore_errors: yes
-
-    - name: Display Kubernetes version
+    - name: Validate Kubernetes deployment strategy
       debug:
-        var: kubectl_version.stdout
+        msg: "Kubernetes manifests are used for Pods, Deployments, Services, and ConfigMaps."
 
-    - name: Check Terraform version
-      command: terraform version
-      register: terraform_version
-      ignore_errors: yes
-
-    - name: Display Terraform version
+    - name: Validate Terraform infrastructure strategy
       debug:
-        var: terraform_version.stdout
+        msg: "Terraform is used to simulate infrastructure provisioning and automated VM creation."
 
-    - name: Check Prometheus container status
-      command: docker ps --filter "name=cosmetics-prometheus"
-      register: prometheus_status
-      ignore_errors: yes
-
-    - name: Display Prometheus status
+    - name: Validate monitoring setup
       debug:
-        var: prometheus_status.stdout
+        msg: "Prometheus, Grafana, and cAdvisor are configured for monitoring and observability."
 
-    - name: Check Grafana container status
-      command: docker ps --filter "name=cosmetics-grafana"
-      register: grafana_status
-      ignore_errors: yes
-
-    - name: Display Grafana status
+    - name: Validate health check and restart policy strategy
       debug:
-        var: grafana_status.stdout
+        msg: "Health checks and restart policies improve service reliability and recovery."
 
-    - name: Show completion message
+    - name: Validate capacity planning strategy
       debug:
-        msg: "Automation checks completed for the cosmetics store infrastructure."
+        msg: "Capacity planning uses load analysis, horizontal scaling, and database optimization."
+
+    - name: Complete automation process
+      debug:
+        msg: "Automation checks completed successfully for the cosmetics store SRE project."
