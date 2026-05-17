@@ -33,7 +33,7 @@ services:
     ports:
       - "5003:5003"
     environment:
-      - FAIL_MODE=false
+      - FAIL_MODE=false 
     restart: always
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5003/health')"]
