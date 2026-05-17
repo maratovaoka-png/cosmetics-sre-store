@@ -3,8 +3,9 @@ Infrastructure Plan for Online Cosmetics Store SRE Project
 Automated VM Creation Simulation:
 1. VM for microservices application
 2. VM for PostgreSQL database
-3. VM for monitoring stack
-4. VM for orchestration and automation tools
+3. VM for Redis message broker
+4. VM for monitoring stack
+5. VM for orchestration and automation tools
 
 Infrastructure Components:
 1. Docker and Docker Compose environment
@@ -15,7 +16,8 @@ Infrastructure Components:
 6. Prometheus monitoring server
 7. Grafana visualization server
 8. cAdvisor container monitoring
-9. Network and firewall configuration
-10. Load balancing and scaling strategy
+9. Nginx API Gateway
+10. Network and firewall configuration
+11. Load balancing and scaling strategy
 
 This Terraform configuration simulates automated infrastructure provisioning for the SRE project.
