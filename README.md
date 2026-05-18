@@ -1,25 +1,40 @@
 # Online Cosmetics Store SRE Project
 
-This project demonstrates Site Reliability Engineering practices for an online cosmetics store using microservices architecture.
+## Project Overview
 
-## Technologies
+This project is an end-term Site Reliability Engineering implementation for an online cosmetics store. The system is built as a distributed microservices application and demonstrates containerization, monitoring, orchestration, infrastructure provisioning, automation, incident response, and capacity planning.
 
-- Docker
-- Docker Compose
-- Docker Swarm
-- Kubernetes
-- Terraform
-- Ansible
-- Prometheus
-- Grafana
-- Flask
-- PostgreSQL
+The project includes a React frontend served by Nginx, six backend microservices, PostgreSQL, Redis, Prometheus, Grafana, cAdvisor, Docker Compose, Docker Swarm, Kubernetes, Terraform, and Ansible.
 
-## Microservices
+## Architecture
 
-1. auth-service
-2. product-service
-3. order-service
-4. payment-service
-5. notification-service
-6. review-service
+```text
+User
+|
+React Frontend served by Nginx
+|
+Nginx API Gateway
+|
++------------------------------------------------+
+|                 Microservices                  |
+|------------------------------------------------|
+| Auth | Product | Order | Payment               |
+| Notification | Review                          |
++------------------------------------------------+
+|
+PostgreSQL / Redis
+
+Monitoring:
+Prometheus → Grafana
+cAdvisor → Prometheus → Grafana
+
+Infrastructure:
+Terraform → VM provisioning simulation
+
+Configuration:
+Ansible → Setup & deployment validation
+
+Orchestration:
+Docker Compose → Local deployment
+Docker Swarm → Stack deployment and service replication
+Kubernetes → Pods, Deployments, Services, ConfigMaps, and HPA
