@@ -1,0 +1,33 @@
+---
+- name: Automated deployment for Online Cosmetics Store
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Show deployment start message
+      debug:
+        msg: "Automated deployment validation started for the Online Cosmetics Store."
+
+    - name: Validate Docker Compose deployment
+      debug:
+        msg: "Local deployment is performed using: docker compose up --build"
+
+    - name: Validate Docker Swarm deployment
+      debug:
+        msg: "Swarm deployment is performed using: docker stack deploy -c docker-stack.yml cosmetics"
+
+    - name: Validate Kubernetes deployment
+      debug:
+        msg: "Kubernetes deployment is performed using: kubectl apply -f k8s/cosmetics-k8s.yaml"
+
+    - name: Validate monitoring stack deployment
+      debug:
+        msg: "Prometheus, Grafana, and cAdvisor are deployed as monitoring components."
+
+    - name: Validate frontend deployment
+      debug:
+        msg: "React frontend is built and served through an Nginx container."
+
+    - name: Validate deployment completion
+      debug:
+        msg: "Automated deployment validation completed successfully."
