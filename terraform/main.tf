@@ -8,10 +8,16 @@ terraform {
 }
 
 resource "local_file" "cosmetics_infrastructure_plan" {
-  filename = "cosmetics-infrastructure-plan.txt"
+  filename = "${path.module}/cosmetics-infrastructure-plan.txt"
 
   content = <<EOT
 Infrastructure Plan for Online Cosmetics Store SRE Project
+
+Project Name:
+${var.project_name}
+
+Environment:
+${var.environment}
 
 Automated VM Creation Simulation:
 1. VM for microservices application
@@ -29,9 +35,15 @@ Infrastructure Components:
 6. Prometheus monitoring server
 7. Grafana visualization server
 8. cAdvisor container monitoring
-9. Nginx API Gateway
+9. React frontend served by Nginx
 10. Network and firewall configuration
 11. Load balancing and scaling strategy
+
+Capacity Planning:
+1. Horizontal scaling using replicas
+2. Vertical scaling using CPU and memory allocation
+3. Database optimization using indexes and connection pooling strategy
+4. Monitoring-based autoscaling strategy
 
 This Terraform configuration simulates automated infrastructure provisioning for the SRE project.
 EOT
